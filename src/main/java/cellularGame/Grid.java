@@ -1,15 +1,18 @@
 package cellularGame;
 
+import static cellularGame.CellState.*;
+
 public class Grid {
     private int[][] grid;
-    private int personHP;
+    private int daysLeft;
+    public Position playerPosition;
     private float treeDensity;
     private float lionDensity;
 
 
     public Grid(int size) {
         grid = new int[size][size];
-        personHP = 10;  // Starting HP
+        daysLeft = 5;
         treeDensity = 0.7f;
         lionDensity = 0.2f;
 
@@ -21,50 +24,46 @@ public class Grid {
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if(i == (grid.length-1) / 2 && j == (grid[i].length-1) / 2){
-                    grid[i][j] = CellType.HUMAN.getValue();
+                    grid[i][j] = HUMAN.getValue();
+                    playerPosition = new Position(4, 4);
                 } else {
                     double randomValue = Math.random();
                     if (randomValue < treeDensity) {
-                        grid[i][j] = CellType.TREE.getValue();
+                        grid[i][j] = TREE.getValue();
                     } else if (randomValue < treeDensity + lionDensity) {
-                        grid[i][j] = CellType.LION.getValue();
+                        grid[i][j] = LION.getValue();
                     } else {
-                        grid[i][j] = CellType.EMPTY.getValue();
+                        grid[i][j] = EMPTY.getValue();
                     }
                 }
             }
         }
     }
 
-    /*
-    public boolean movePerson(int dx, int dy) {
-        int newX = personX + dx;
-        int newY = personY + dy;
-
-        if (newX >= 0 && newY >= 0 && newX < grid.length && newY < grid[0].length) {
-            personHP--;  // Movement costs 1 HP
-            CellType nextCell = grid[newX][newY];
-            switch (nextCell) {
-                case TREE:
-                    personHP++;  // Gain 1 HP
-                    break;
-                case LION:
-                    return false;  // Person dies
-            }
-            // Move the person
-            grid[personX][personY] = CellType.EMPTY;
-            personX = newX;
-            personY = newY;
-            grid[personX][personY] = CellType.PERSON;
-            return true;
-        }
-        return true;
+    public boolean canMove(Position from){
+        return grid[from.getX()][from.getY()] == HUMAN.getValue();
     }
 
-     */
+    public void move(Position from, Position direction) {
+        Position to = new Position(from.getX() + direction.getX(), from.getY() + direction.getY());
 
-    public int getPersonHP() {
-        return personHP;
+        if(grid[to.getX()][to.getY()] == LION.getValue()){
+            //GAME OVER
+        } else if (grid[to.getX()][to.getY()] == TREE.getValue()) {
+            daysLeft+=2;
+        } else {
+            daysLeft--;
+        }
+
+        grid[from.getX()][from.getY()] = EMPTY.getValue();
+        grid[to.getX()][to.getY()] = HUMAN.getValue();
+        playerPosition = new Position(to.getX(), to.getY());
+    }
+
+
+
+    public int getDaysLeft() {
+        return daysLeft;
     }
 
     public void printGrid() {
@@ -72,13 +71,13 @@ public class Grid {
 
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                if(grid[i][j] == CellType.EMPTY.getValue()){
+                if(grid[i][j] == EMPTY.getValue()){
                     color = "\u001B[33m";
-                } else if (grid[i][j] == CellType.TREE.getValue()) {
+                } else if (grid[i][j] == TREE.getValue()) {
                     color = "\u001B[32m";
-                } else if (grid[i][j] == CellType.LION.getValue()){
+                } else if (grid[i][j] == LION.getValue()){
                     color = "\u001B[31m";
-                } else if (grid[i][j] == CellType.HUMAN.getValue()){
+                } else if (grid[i][j] == HUMAN.getValue()){
                     color = "\u001B[37m";
                 } else {
                     color = "\u001B[30m";
@@ -88,5 +87,6 @@ public class Grid {
             }
             System.out.println();
         }
+        System.out.println("\u001B[37m" + "days left: " + daysLeft);
     }
 }

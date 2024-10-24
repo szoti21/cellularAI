@@ -1,6 +1,6 @@
 package cellularGame;
 
-public enum CellType {
+public enum CellState {
     EMPTY(0),   // Empty space represented by 0
     TREE(1),    // Tree represented by 1
     LION(2),    // Lion represented by 2
@@ -9,7 +9,7 @@ public enum CellType {
     private final int value;  // Numeric value for each cell type
 
     // Constructor to associate the numeric value with the enum constant
-    CellType(int value) {
+    CellState(int value) {
         this.value = value;
     }
 
