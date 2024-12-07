@@ -14,17 +14,17 @@ public class Main {
             System.out.println();
             String move = sc.nextLine();
 
-            if (grid1.canMove(grid1.playerPosition)){
-                if (move.equals("LEFT")){
-                    grid1.move(grid1.playerPosition, Moves.LEFT.getValue());
-                } else if (move.equals("RIGHT")) {
-                    grid1.move(grid1.playerPosition, Moves.RIGHT.getValue());
-                } else if (move.equals("UP")) {
-                    grid1.move(grid1.playerPosition, Moves.UP.getValue());
-                } else if (move.equals("DOWN")) {
-                    grid1.move(grid1.playerPosition, Moves.DOWN.getValue());
-                }
+
+            if (move.equals("LEFT") && grid1.canMove(grid1.playerPosition, Moves.LEFT.getValue())){
+                grid1.move(grid1.playerPosition, Moves.LEFT.getValue());
+            } else if (move.equals("RIGHT") && grid1.canMove(grid1.playerPosition, Moves.RIGHT.getValue())) {
+                grid1.move(grid1.playerPosition, Moves.RIGHT.getValue());
+            } else if (move.equals("UP") && grid1.canMove(grid1.playerPosition, Moves.UP.getValue())) {
+                grid1.move(grid1.playerPosition, Moves.UP.getValue());
+            } else if (move.equals("DOWN") && grid1.canMove(grid1.playerPosition, Moves.DOWN.getValue())) {
+                grid1.move(grid1.playerPosition, Moves.DOWN.getValue());
             }
+
             System.out.println();
             grid1.printGrid();
         }

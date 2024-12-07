@@ -29,6 +29,47 @@
             <artifactId>api</artifactId>
             <version>0.30.0</version>
         </dependency>
+        <!-- DJL BasicDataset if using ArrayDataset -->
+        <dependency>
+            <groupId>ai.djl</groupId>
+            <artifactId>basicdataset</artifactId>
+            <version>0.30.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.tensorflow</groupId>
+            <artifactId>tensorflow-native-cpu</artifactId>
+            <classifier>win-x86_64</classifier>
+            <scope>runtime</scope>
+            <version>2.16.1</version>
+        </dependency>
+
+
+        <!-- DJL PyTorch Engine for training the model (optional, can use TensorFlow or MXNet as well) -->
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-engine</artifactId>
+            <version>0.30.0</version>
+        </dependency>
+
+        <!-- DJL PyTorch Native Dependency (specific to your OS, e.g., CPU-only, CUDA) -->
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-native-auto</artifactId>
+            <version>1.9.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Optional: Slf4j for logging, helpful for debugging and monitoring training -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
+        </dependency>
     </dependencies>
 
 </project>
