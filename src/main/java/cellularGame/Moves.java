@@ -22,6 +22,10 @@ public enum Moves {
         return value;
     }
 
+    public int getAction() {
+        return action;
+    }
+
     public static Moves getMoveByAction(int action){
         for (Moves move : Moves.values()){
             if (move.action == action){
